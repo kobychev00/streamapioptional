@@ -1,4 +1,4 @@
-package com.example.collectionslists090923;
+package com.example.collectionslists090923.controller;
 
 import com.example.collectionslists090923.model.Employee;
 import com.example.collectionslists090923.service.EmployeeService;

@@ -75,9 +75,11 @@ public class EmployeeService {
     }
 
     /*метод типа list, который возвращает все элементы list*/
-    public Collection<Employee> getAll() {
-        return employees.values();
+    public Collection<Employee> findAll() {
+        return Collections.unmodifiableCollection(employees.values());
     }
+
+
 
     private String getKey(String firstName, String lastName) {
         return firstName + lastName;
