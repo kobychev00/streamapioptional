@@ -56,7 +56,7 @@ public class CollListController {
     /*метод типа list, который возвращает все элементы list*/
     @GetMapping
     public Collection<Employee> getAll() {
-        return employeeService.getAll();
+        return employeeService.findAll();
     }
 }
 

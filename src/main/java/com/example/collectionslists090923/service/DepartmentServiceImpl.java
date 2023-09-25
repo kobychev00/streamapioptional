@@ -11,17 +11,17 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class departmentServiceImpl implements departmentService {
+public class DepartmentServiceImpl implements DepartmentService {
 
     public EmployeeService employeeService;
 
-    public departmentServiceImpl(EmployeeService employeeService) {
+    public DepartmentServiceImpl(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
     @Override
     public Employee getEmployeeWithMaxSalary(Integer departmentId) {
-        return employeeService.getAll()
+        return employeeService.findAll()
                 .stream()
                 .filter(e -> e.getDepartmentId() == departmentId)
                 .max(Comparator.comparingInt(Employee::getSalary))
@@ -30,7 +30,7 @@ public class departmentServiceImpl implements departmentService {
 
     @Override
     public Employee getEmployeeWithMinSalary(Integer departmentId) {
-        return employeeService.getAll()
+        return employeeService.findAll()
                 .stream()
                 .filter(e -> e.getDepartmentId() == departmentId)
                 .min( Comparator.comparingInt(Employee::getSalary))
@@ -39,7 +39,7 @@ public class departmentServiceImpl implements departmentService {
 
     @Override
     public Collection<Employee> getEmployee (Integer departmentId) {
-        return employeeService.getAll()
+        return employeeService.findAll()
                 .stream()
                 .filter(e -> e.getDepartmentId() == departmentId)
                 .collect(Collectors.toList());
@@ -47,7 +47,7 @@ public class departmentServiceImpl implements departmentService {
 
     @Override
     public Map<Integer, List<Employee>> getEmployee() {
-        return employeeService.getAll()
+        return employeeService.findAll()
                 .stream()
                 .collect(Collectors.groupingBy(Employee::getDepartmentId));
     }

@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public interface departmentService {
+public interface DepartmentService {
 
     Employee getEmployeeWithMaxSalary(Integer departmentId);
     Employee getEmployeeWithMinSalary(Integer departmentId);
