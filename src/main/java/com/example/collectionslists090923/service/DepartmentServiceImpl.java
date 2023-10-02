@@ -13,41 +13,41 @@ import java.util.stream.Collectors;
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
-    public EmployeeService employeeService;
+    private EmployeeServiceImpl employeeServiceImpl;
 
-    public DepartmentServiceImpl(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public DepartmentServiceImpl(EmployeeServiceImpl employeeServiceImpl) {
+        this.employeeServiceImpl = employeeServiceImpl;
     }
 
     @Override
     public Employee getEmployeeWithMaxSalary(Integer departmentId) {
-        return employeeService.findAll()
+        return employeeServiceImpl.getAll()
                 .stream()
-                .filter(e -> e.getDepartmentId() == departmentId)
+                .filter(e -> e.getDepartmentId().equals(departmentId))
                 .max(Comparator.comparingInt(Employee::getSalary))
                 .orElseThrow(() -> new EmployeeIsNotFoundException("Сотрудник не найден"));
     }
 
     @Override
     public Employee getEmployeeWithMinSalary(Integer departmentId) {
-        return employeeService.findAll()
+        return employeeServiceImpl.getAll()
                 .stream()
-                .filter(e -> e.getDepartmentId() == departmentId)
+                .filter(e -> e.getDepartmentId().equals(departmentId))
                 .min( Comparator.comparingInt(Employee::getSalary))
                 .orElseThrow(() -> new EmployeeIsNotFoundException("Сотрудник не найден"));
     }
 
     @Override
     public Collection<Employee> getEmployee (Integer departmentId) {
-        return employeeService.findAll()
+        return employeeServiceImpl.getAll()
                 .stream()
-                .filter(e -> e.getDepartmentId() == departmentId)
+                .filter(e -> e.getDepartmentId().equals(departmentId))
                 .collect(Collectors.toList());
     }
 
     @Override
     public Map<Integer, List<Employee>> getEmployee() {
-        return employeeService.findAll()
+        return employeeServiceImpl.getAll()
                 .stream()
                 .collect(Collectors.groupingBy(Employee::getDepartmentId));
     }

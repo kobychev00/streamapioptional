@@ -10,5 +10,4 @@ public class CollectionsLists090923Application {
 
 		SpringApplication.run(CollectionsLists090923Application.class, args);
 	}
-
 }
