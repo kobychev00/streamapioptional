@@ -1,21 +1,26 @@
-package com.example.collectionslists090923;
+package com.example.collectionslists090923.controller;
 
 import com.example.collectionslists090923.model.Employee;
-import com.example.collectionslists090923.service.EmployeeService;
+import com.example.collectionslists090923.service.EmployeeServiceImpl;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpStatusCodeException;
 
 import java.util.Collection;
-import java.util.List;
 
 
 @RestController
 @RequestMapping("employee")
 public class CollListController {
 
-    private final EmployeeService employeeService;
+    @ExceptionHandler({HttpStatusCodeException.class})
+    public String handleException(HttpStatusCodeException e) {
+        return "Code: " + e.getStatusCode() + " Error: " + e.getMessage();
+    }
 
-    public CollListController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    private final EmployeeServiceImpl employeeServiceImpl;
+
+    public CollListController(EmployeeServiceImpl employeeServiceImpl) {
+        this.employeeServiceImpl = employeeServiceImpl;
     }
 
     @GetMapping("/hello")
@@ -30,7 +35,7 @@ public class CollListController {
                         @RequestParam String lastName,
                         @RequestParam Integer departmentId,
                         @RequestParam Integer salary) {
-        return employeeService.add(firstName, lastName, departmentId, salary);
+        return employeeServiceImpl.add(firstName, lastName, departmentId, salary);
     }
 
     @GetMapping(path = "/remove")
@@ -39,11 +44,11 @@ public class CollListController {
                            @RequestParam Integer departmentId,
                            @RequestParam Integer salary) {
 
-        return employeeService.remove(firstName, lastName, departmentId, salary);
+        return employeeServiceImpl.remove(firstName, lastName, departmentId, salary);
     }
     @GetMapping(path = "/get")
     public Employee get(@RequestParam String firstName, @RequestParam String lastName) {
-        return employeeService.get(firstName, lastName);
+        return employeeServiceImpl.get(firstName, lastName);
     }
     /*метод типа String, который ловит исключения типа Runtimeexception
     * возвращают сообщения из методов Exception*/
@@ -56,7 +61,7 @@ public class CollListController {
     /*метод типа list, который возвращает все элементы list*/
     @GetMapping
     public Collection<Employee> getAll() {
-        return employeeService.getAll();
+        return employeeServiceImpl.getAll();
     }
 }
 
