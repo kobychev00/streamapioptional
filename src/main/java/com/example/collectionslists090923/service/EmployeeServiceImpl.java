@@ -19,7 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     private final Map<String, Employee> employees = new LinkedHashMap<>();
 
     /*размер списка Employees*/
-    private static final int MAX_SIZE = 5;
+    private static final int MAX_SIZE = 1;
 
     /*добавить элемент в мапу employees*/
     @Override
